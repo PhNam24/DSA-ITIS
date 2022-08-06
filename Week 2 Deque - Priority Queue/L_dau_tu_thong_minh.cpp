@@ -17,14 +17,31 @@ int main ()
     {
         cin >> b[i];
     }
-    map<int , int> m;
+    priority_queue<pair<int,int>> pq;
     for ( int i = 0 ; i < n ; i++ )
     {
-        m.insert({b[i] , a[i]});
+        pq.push({b[i] , a[i]});
     }
-    for ( auto i : m )
+    priority_queue <pair<int,int>> pq1;
+    while (k--)
     {
-        cout << i.first << " " << i.second << '\n';
+        while (!pq.empty() && c < pq.top().second)
+        {
+            pq1.push(pq.top());
+            pq.pop();
+        }
+        if (!pq.empty())
+        {
+            c += pq.top().first;
+            pq.pop();
+        }
+        while (!pq1.empty())
+        {
+            pq.push(pq1.top());
+            pq1.pop();
+        }
+        if ( pq.size() == 0 ) break;
     }
+    cout << c;
     return 0;
 }
