@@ -4,11 +4,13 @@
 
 using namespace std;
 
-bool cmp ( pair<int,int> a , pair<int,int> b )
+struct cmp
 {
-    if ( b.second != a.second ) return b.second > a.second;
-     return b.first > a.first;
-}
+    bool operator()(const pair<int, int> a, const pair<int, int> b)
+    {
+        return (a.second < b.second);
+    }
+};
 
 int main ()
 {
@@ -16,7 +18,6 @@ int main ()
     int n;
     cin >> n;
     int a[n] , b[n];
-    vector<pair<int,int> > v;
     for ( int i = 0 ; i < n ; i++ )
     {
         cin >> a[i];
@@ -25,19 +26,41 @@ int main ()
     {
         cin >> b[i];
     }
+    priority_queue<pair<int,int> , vector<pair<int,int>> , greater<>>pq;
+   priority_queue<pair<int,int>, vector<pair<int,int>>, cmp> pq1;
     for ( int i = 0 ; i < n ; i++ )
     {
-        if (a[i] <= b[i]) v.push_back({a[i] , b[i]});
+        pq.push({b[i] , a[i]});
     }
-    priority_queue<int , vector<int> , greater<int>> pq;
-    sort(v.begin() , v.end() , cmp);
     int t = 0;
-    for ( int i = 0 ; i < v.size() ; i++ )
+    while (!pq.empty())
     {
-        t += v[i].first;
-        if ( t <= v[i].second ) pq.push(v[i].first);
-        
+        while (!pq.empty() && t + pq.top().second > pq.top().first) pq.pop();
+        if ( pq.size() == 0 ) 
+        {
+            cout << pq1.size();
+            return 0;
+        }
+        while (!pq.empty() && t + pq.top().second <= pq.top().first )
+        {
+            pq1.push(pq.top());
+            t += pq.top().second;
+            pq.pop();
+        }
+        while (!pq.empty() && t + pq.top().second > pq.top().first)
+        {
+            if (pq.top().second > pq1.top().second)
+                pq.pop();
+            else
+            {
+                t -= pq1.top().second;
+                pq1.pop();
+                t += pq.top().second;
+                pq1.push(pq.top());
+                pq.pop();
+            }
+        }
     }
-    cout << pq.size();
+    cout << pq1.size();
     return 0;
 }
