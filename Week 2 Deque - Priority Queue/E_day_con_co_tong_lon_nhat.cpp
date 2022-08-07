@@ -16,18 +16,17 @@ int main ()
         {
             cin >> a[i];
         }
-        deque<int> dq;
-        int sum = 0;
+        deque<pair<int,int>> dq;
         int ans = -1e9;
         for ( int i = 0 ; i < n ; i++ )
         {
-            dq.push_front(i);
-            sum += a[i];
-            while ( !dq.empty() && abs(i - dq.front()) <= k ) 
-            {
-                ans = max(ans , sum);
-                dq.pop_back();
-            }
+            int tmp = a[i];
+            if (!dq.empty())
+          {  while (!dq.empty() && i - dq.front().second > k) dq.pop_front();
+            tmp = max(a[i] , a[i] + dq.front().first);
+            while (!dq.empty() && tmp > dq.back().first) dq.pop_back();}
+            ans = max (ans , tmp);
+            dq.push_back({tmp , i});
         }
         cout << ans << '\n';
     }
