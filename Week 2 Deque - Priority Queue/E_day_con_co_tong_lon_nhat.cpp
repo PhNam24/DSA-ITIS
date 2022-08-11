@@ -22,9 +22,11 @@ int main ()
         {
             int tmp = a[i];
             if (!dq.empty())
-          {  while (!dq.empty() && i - dq.front().second > k) dq.pop_front();
-            tmp = max(a[i] , a[i] + dq.front().first);
-            while (!dq.empty() && tmp > dq.back().first) dq.pop_back();}
+            {  
+                while (!dq.empty() && i - dq.front().second > k) dq.pop_front();
+                tmp = max(a[i] , a[i] + dq.front().first);
+                while (!dq.empty() && tmp > dq.back().first) dq.pop_back();
+            }
             ans = max (ans , tmp);
             dq.push_back({tmp , i});
         }

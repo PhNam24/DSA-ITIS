@@ -27,7 +27,7 @@ int main ()
         cin >> b[i];
     }
     priority_queue<pair<int,int> , vector<pair<int,int>> , greater<>>pq;
-   priority_queue<pair<int,int>, vector<pair<int,int>>, cmp> pq1;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, cmp> pq1;
     for ( int i = 0 ; i < n ; i++ )
     {
         pq.push({b[i] , a[i]});
