@@ -22,7 +22,7 @@ int main ()
             cout << s.top();
             s.pop();
         }
-        cout << "\n";
+        cout << '\n';
     }
     return 0;
 }
