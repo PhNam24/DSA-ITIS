@@ -5,7 +5,7 @@
 using namespace std;
 
 int root[10005] = {};
-int size[10005] = {};
+int Size[10005] = {};
 int ans = -1;
 
 int findRoot(int u)
@@ -20,10 +20,10 @@ void Union(int x, int y)
     int rootX = findRoot(x), rootY = findRoot(y);
     if (rootX != rootY)
     {
-        if (size[rootX] < size[rootY])
-            swap(size[rootX], size[rootY]);
+        if (Size[rootX] < Size[rootY])
+            swap(Size[rootX], Size[rootY]);
         root[rootY] = root[x];
-        size[rootX] += size[rootY];
+        Size[rootX] += Size[rootY];
     }
 }
 
@@ -35,7 +35,7 @@ int main ()
         for ( int i = 0 ; i < 10005 ; i++ )
         {
             root[i] = i;
-            size[i] = 1;
+            Size[i] = 1;
         }
         ans = 0;
         int v , e;
@@ -48,7 +48,7 @@ int main ()
         }
         for ( int i = 1 ; i <= v ; i++ )
         {
-            ans = max(ans , size[i]);
+            ans = max(ans , Size[i]);
         }
         cout << ans << '\n';
     }

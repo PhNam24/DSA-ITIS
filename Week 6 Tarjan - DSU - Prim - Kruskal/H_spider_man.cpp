@@ -29,7 +29,7 @@ void Union ( int x , int y )
     int rootX = findRoot(x) , rootY = findRoot(y);
     if ( rootX != rootY )
     {
-        if ( Size[rootX] < Size[rootY] ) swap (Size[rootX] , Size[rootY]);
+        if ( Size[rootX] < Size[rootY] ) swap (rootX , rootY);
         root[rootY] = rootX;
         Size[rootX] += Size[rootY];
         Size[rootY] = 0;
