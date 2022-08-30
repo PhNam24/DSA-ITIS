@@ -40,7 +40,7 @@ int Union(int x, int y)
     }
     return 0;
 }
-
+int check[1005][1005]={};
 int main ()
 {
     ios_base::sync_with_stdio(false); 
@@ -57,23 +57,23 @@ int main ()
         cin >> x >> y;
         v.push_back({x, y});
     }
+	while (m--)
+    {
+        int x, y;
+        cin >> x >> y;
+        kc.push_back({0,{x,y}});
+		check[x][y]=1;
+		check[y][x]=1;
+    }
     for (int i = 0; i < v.size(); i++)
     {
         for (int j = i + 1; j < v.size(); j++)
         {
+			if(check[i+1][j+1]==1 || check[j+1][i+1]==1) continue;
             kc.push_back({khoangcach(v[i].first, v[i].second, v[j].first, v[j].second),{i + 1 , j + 1}});
         }
     }
     double ans = 0;
-    while (m--)
-    {
-        int x, y;
-        cin >> x >> y;
-        for ( int i = 0 ; i < kc.size() ; i++ )
-        {
-            if ( kc[i].second.first == x && kc[i].second.second == y ) kc[i].first = 0;
-        }
-    }
     sort(kc.begin() , kc.end());
     for ( int i = 0 ; i < kc.size() ; i++ )
     {
