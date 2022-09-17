@@ -19,6 +19,10 @@ int main ()
             cin >> a[i][j];
         }
     }
+    /*  
+        dp[i][mask] là chi phí nhỏ nhất tại thành phố i là thành phố được thăm cuối cùng tại trạng thái mask 
+        => KQ : min (dp[i = 0 -> n - 1][(1<<n) - 1])
+    */
     long long dp[n][33000];
     for ( int i = 0; i < n; i++ )
     {
@@ -34,17 +38,17 @@ int main ()
     for ( int mask = 0; mask < (1<<n); mask++ )
     {
         for ( int i = 0; i < n; i++ )
-    {
-        for ( int j = 0; j < n; j++ )
         {
-            
-                if ( dp[i][mask] != 1e9 )
-                {
-                    if ( (mask & (1 << j)) == 0 ) dp[j][mask | (1 << j)] = min(dp[j][mask | (1 << j)], dp[i][mask] + a[i][j]);
-                }
-            
+            for ( int j = 0; j < n; j++ )
+            {
+                
+                    if ( dp[i][mask] != 1e9 )
+                    {
+                        if ( (mask & (1 << j)) == 0 ) dp[j][mask | (1 << j)] = min(dp[j][mask | (1 << j)], dp[i][mask] + a[i][j]);
+                    }
+                
+            }
         }
-    }
     }
     long long ans = 1e9;
     for ( int i = 0; i < n; i++ )
